@@ -9,7 +9,7 @@
 
 <?php elseif($success): ?>
 
-<div class="alert alert-dismissible alert-successs mt-3">
+<div class="alert alert-dismissible alert-success mt-3">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <strong>Post created successfully!</strong>  
 </div>
@@ -28,6 +28,17 @@
     <div class="form-group">
       <label for="bodyTextarea">Content</label>
       <textarea name="body" class="form-control" id="editor1" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="selectCategory">Category</label>
+      <select class="form-control" id="selectCategory" name="category">
+        <option></option>
+        <?php foreach($categories as $category): ?>
+          <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+        <?php endforeach; ?>
+
+      </select>
     </div>
 
     <div class="d-flex">    

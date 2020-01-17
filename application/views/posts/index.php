@@ -22,6 +22,7 @@
           </div>
           <div class="card-footer">
             <a href="<?php echo site_url('/posts/'. $post['slug']) ?>" class="btn btn-primary"> Read more </a>
+            <span class="float-right"><?= $post['category']; ?></span>
           </div>
         </div>
       </div>

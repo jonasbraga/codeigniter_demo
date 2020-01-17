@@ -11,6 +11,7 @@
   </div>
   <h1 class="display-3"><?= $post['title'] ?></h1>
   <p class="lead"><?= $post['body'] ?></p>
+  <span class="badge badge-secondary"><?= $post['category'] ?></span>
   <hr class="my-4">
   <p>Posted on <?= date("d/m/Y", strtotime($post['created_at'])); ?>.</p>
   <p class="lead">

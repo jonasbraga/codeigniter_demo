@@ -29,6 +29,26 @@
       <label for="bodyTextarea">Content</label>
       <textarea name="body" class="form-control" id="editor1" rows="3"><?= $post['body'] ?></textarea>
     </div>
+
+    <div class="form-group">
+      <label for="selectCategory">Category</label>
+      <select class="form-control" id="selectCategory" name="category">
+        <option></option>
+
+        <?php foreach($categories as $category){
+          $selected = $category['name'] == $post['category'] ? 'selected' : ''; 
+          echo "<option value='$category[id]' $selected>$category[name]</option>";
+        }
+          
+          
+          
+        ?>
+
+
+
+      </select>
+    </div>
+    
     <div class="d-flex">
       <a class="btn btn-primary mr-2" href="../<?= $post['slug'] ?>" role="button"> < Back</a>
       <button type="submit" class="btn btn-primary">Edit</button>

@@ -37,11 +37,13 @@
   public function create(){
     $data = [
       'error' => '',
-      'success' => ''
+      'success' => '',
+      'categories' => $this->category_model->get_categories() 
     ];
 
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('body', 'Body', 'required');
+    $this->form_validation->set_rules('category', 'Category', 'required');
 
     if($this->form_validation->run()){      
       $data['success'] = !!$this->post_model->create_post();
@@ -59,12 +61,15 @@
   public function edit($slug){
     $data = [
       'post' => $this->post_model->get_posts($slug),
+      'categories' => $this->category_model->get_categories(),
       'error' => '',
       'success' => ''
     ];
     
     if(empty($data['post'])){
       show_404();
+    }else{
+      $data['category'] = $this->category_model->get_categories($data['post']['id']);
     }
 
     $this->load->view('layout/start');  
@@ -83,14 +88,20 @@
   
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('body', 'Body', 'required');
+    $this->form_validation->set_rules('category', 'Category', 'required');
 
     if($this->form_validation->run()){
       $response = $this->post_model->update_post($id);
       $data['success'] = !!$response['update'];
       $data['post'] = $response['post'];
+      $data['categories'] = $this->category_model->get_categories();
+      
       $data['error'] = $data['success'] ? '' : 'Couldn\'t update the post. Try again later.';
     }else{
-      $data['post'] = $this->post_model->get_posts(0, $id);
+      $data = [
+        'post' => $this->post_model->get_posts(0, $id),
+        'categories' => $this->category_model->get_categories()
+      ];
     }
 
     $this->load->view('layout/start');  

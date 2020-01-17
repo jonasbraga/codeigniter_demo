@@ -1,6 +1,3 @@
-
-
-
 <!-- This view show all categories in the database -->
 <div class="d-flex my-3">
   <div class="w-50">
