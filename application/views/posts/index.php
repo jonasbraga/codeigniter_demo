@@ -19,6 +19,9 @@
           <div class="card-body">
             <h4 class="card-title"><?= $post['title'] ?></h4>
             <p class="card-text"><?= word_limiter($post['body'], 25) ?></p>
+            <div class="row">
+              <img src="<?= site_url() . 'assets/images/posts/'. $post['image'] ?>" alt="">
+            </div>
           </div>
           <div class="card-footer">
             <a href="<?php echo site_url('/posts/'. $post['slug']) ?>" class="btn btn-primary"> Read more </a>

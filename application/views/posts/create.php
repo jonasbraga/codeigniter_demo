@@ -16,7 +16,7 @@
 
 <?php endif; ?>
 
-<?= form_open('posts/create')?>
+<?= form_open_multipart('posts/create')?>
   <fieldset>
     <legend>Create a new post here!</legend>
 
@@ -30,17 +30,22 @@
       <textarea name="body" class="form-control" id="editor1" rows="3"></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="selectCategory">Category</label>
-      <select class="form-control" id="selectCategory" name="category">
-        <option></option>
-        <?php foreach($categories as $category): ?>
-          <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
-        <?php endforeach; ?>
-
-      </select>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label for="selectCategory">Category</label>
+        <select class="form-control" id="selectCategory" name="category">
+          <option></option>
+          <?php foreach($categories as $category): ?>
+            <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="inputFile">File input</label>
+        <input type="file" name="image" class="form-control-file" id="inputFile" aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Please do not upload a image larger than 3 MB.</small>
+      </div>
     </div>
-
     <div class="d-flex">    
       <a class="btn btn-primary mr-2" href="../posts/" role="button"> < Back</a>
       <button type="submit" class="btn btn-primary">Submit</button>

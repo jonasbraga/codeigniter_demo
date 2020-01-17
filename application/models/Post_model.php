@@ -25,13 +25,14 @@ class Post_model extends CI_Model{
     return $response;
   }
 
-  public function create_post(){
+  public function create_post($post_image){
    
     $data = [
       'title' => $this->input->post('title'),
       'slug' => strtolower(url_title($this->input->post('title'))),
       'body' => $this->input->post('body'),
       'category_id' => $this->input->post('category'),
+      'image' => $post_image,
       'created_at' => now_date_mysql(),
       'updated_at' => now_date_mysql()
     ];
@@ -41,13 +42,14 @@ class Post_model extends CI_Model{
     return $response;
   }
 
-  public function update_post($id){
+  public function update_post($id, $post_image){
    
     $data = [
       'title' => $this->input->post('title'),
       'slug' => strtolower(url_title($this->input->post('title'))),
       'body' => $this->input->post('body'),
       'category_id' => $this->input->post('category'),
+      'image' => $post_image,
       'updated_at' => now_date_mysql()
     ];
 

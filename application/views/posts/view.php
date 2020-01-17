@@ -11,6 +11,9 @@
   </div>
   <h1 class="display-3"><?= $post['title'] ?></h1>
   <p class="lead"><?= $post['body'] ?></p>
+  <div class="row">
+    <img class="mx-auto thumbnail" src="<?= site_url() . 'assets/images/posts/'. $post['image'] ?>" alt="">
+  </div>
   <span class="badge badge-secondary"><?= $post['category'] ?></span>
   <hr class="my-4">
   <p>Posted on <?= date("d/m/Y", strtotime($post['created_at'])); ?>.</p>
