@@ -23,7 +23,7 @@
 
       $this->form_validation->set_rules('name', 'Name', 'required');
 
-      if($this->form_validation->run()){      
+      if($this->form_validation->run()){
         $data['success'] = !!$this->category_model->create_category();
         $data['error'] = $data['success'] ? '' : 'Couldn\'t create a new category. Try again later.';
       }
