@@ -35,10 +35,11 @@ $route['categories/update/(:num)'] = 'categories/update/$1';
 $route['categories/(:any)'] = 'categories/view/$1';
 $route['categories'] = 'categories/index';
 
-$route['comments/create'] = 'comments/create';
-// $route['comments/update/(:num)'] = 'comments/update/$1';
-// $route['comments/(:any)'] = 'comments/view/$1';
-// $route['comments'] = 'comments/index';
+$route['comments/create/(:any)'] = 'comments/create/$1';
+
+$route['users/signup'] = 'users/create';
+$route['register'] = 'users/register';
+$route['login'] = 'users/login';
 
 $route['(:any)'] = 'pages/view/$1';
 

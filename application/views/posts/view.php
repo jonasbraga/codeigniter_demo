@@ -26,7 +26,25 @@
 
 <h3>Comments</h3>
 
-<?= form_open('comments/create') ?>
+<?php if(validation_errors() || $error): ?>
+
+<div class="alert alert-dismissible alert-danger mt-3">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Oops!</strong>  
+  <?= $error ? $error : validation_errors(); ?> 
+</div>
+
+<?php elseif($success): ?>
+
+<div class="alert alert-dismissible alert-success mt-3">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Comment posted successfully!</strong>  
+</div>
+
+<?php endif; ?>
+
+<?= form_open('comments/create/'.$post['slug']) ?>
+  <input type="hidden" name="id" value="<?= $post['id'] ?>">
   <legend>Add a comment here!</legend>
   <div class="form-group row">
     <div class="col-md-6">
@@ -46,3 +64,16 @@
     <button class="btn btn-danger">Comment</button>
   </div>
 </form>
+
+<br>
+<hr>
+
+<?php foreach($comments as $comment):?>
+
+  <blockquote class="blockquote ">
+    <h4><?= $comment['name'] ?></h4>
+    <footer class="blockquote-footer"><?= format_date($comment['created_at'], 'd/m/Y H:i') ?></footer>
+    <p class="mb-0"><?= $comment['body'] ?>.</p>
+  </blockquote>
+
+<?php endforeach;?>
