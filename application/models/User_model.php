@@ -5,21 +5,14 @@ class User_model extends CI_Model{
     $this->load->database();
   }
 
-  public function get_users($slug = FALSE, $id = FALSE){
-    
-    $this->db->select('posts.*, categories.name AS category');
-    $this->db->from('posts');
-    $this->db->join('categories', 'categories.id = posts.category_id');
-      
-    if($slug === FALSE){
-      $query = $this->db->get();
-      $response = $query->result_array(); 
-    } else if($id){
-      $query = $this->db->where('posts.id', $id)->get();
+  public function get_users($id = FALSE){
+  
+    if($id){
+      $query = $this->db->get_where('users', ['id' => $id]);
       $response = $query->row_array(); 
     } else {
-      $query = $this->db->where('posts.slug', $slug)->get();
-      $response = $query->row_array(); 
+      $query = $this->db->get('users');
+      $response = $query->result_array(); 
     }
 
     return $response;
@@ -30,7 +23,7 @@ class User_model extends CI_Model{
     $data = [
       'name' => $this->input->post('first_name') . $this->input->post('last_name'),
       'email' => $this->input->post('email'),
-      'password' => $password,
+      'password_hash' => $password,
       'created_at' => now_date_mysql(),
       'updated_at' => now_date_mysql()
     ];
@@ -40,31 +33,40 @@ class User_model extends CI_Model{
     return $response;
   }
 
-  public function update_user($id, $post_image){
+  public function update_user($id, $password){
    
     $data = [
-      'title' => $this->input->post('title'),
-      'slug' => strtolower(url_title($this->input->post('title'))),
-      'body' => $this->input->post('body'),
-      'category_id' => $this->input->post('category'),
-      'image' => $post_image,
+      'name' => $this->input->post('username'),
+      'email' => $this->input->post('email'),
+      'password_hash' => $password,
       'updated_at' => now_date_mysql()
     ];
 
-    $response['update'] = $this->db->update('posts', $data, ['id' => $id]);
-    
-    if(!!$response){
-      $response['post'] = $this->get_posts(0, $id); 
-      $response['categories'] = $this->category_model->get_categories(); 
-    }
+    $response = $this->db->update('users', $data, ['id' => $id]);
      
     return $response;
   }
 
   public function delete_user($id){
   
-    $response = $this->db->delete('posts', ['id' => $id]);
+    $response = $this->db->delete('users', ['id' => $id]);
     
     return $response;
   }
+
+  public function validate_credentials(){
+    
+    $password = $this->input->post('password');
+    $email = $this->input->post('email');
+    $query = $this->db->get_where('users', ['email' => $email]);
+    if($query->num_rows()){;
+      $password_hash = $query->row()->password_hash;
+      $response = password_verify($password, $password_hash);
+    }else{
+      $response = false;
+    }
+
+    return $response;
+  }
+  
 }

@@ -6,7 +6,7 @@ class Category_model extends CI_Model{
   }
 
   public function get_categories($id = FALSE){
-    if($id === FALSE){
+    if(!$id){
       $query = $this->db->order_by('name', 'ASC')->get('categories');
       $response = $query->result_array(); 
     }else{

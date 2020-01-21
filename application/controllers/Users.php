@@ -171,13 +171,33 @@
 
     $data = [
       'error' => '',
-      'success' => ''
     ];
 
     $this->load->view('layout/start'); 
     $this->load->view('users/login', $data);
-    $this->load->view('layout/script');
     $this->load->view('layout/end');
+    $this->load->view('layout/script');
+  }  
+
+  public function signin(){
+
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+
+    if($this->form_validation->run()){
+      $password_hash = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+      if($this->user_model->validate_credentials($password_hash)){
+        redirect('home');
+      } else {
+        $this->session->set_flashdata('login', 'User/password does not match any user.');
+        redirect('login');
+      }
+    }else{
+      $this->load->view('layout/start'); 
+      $this->load->view('users/login');
+      $this->load->view('layout/end');
+      $this->load->view('layout/script');
+    }
   }  
 } 
                 

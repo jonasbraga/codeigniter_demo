@@ -40,11 +40,12 @@ $route['comments/create/(:any)'] = 'comments/create/$1';
 $route['users/signup'] = 'users/create';
 $route['register'] = 'users/register';
 $route['login'] = 'users/login';
+$route['signin'] = 'users/signin';
 
 $route['(:any)'] = 'pages/view/$1';
 
 #-- default routes -- 
-$route['default_controller'] = 'pages/view'; #welcome
+$route['default_controller'] = 'users/login'; #welcome
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

@@ -18,6 +18,10 @@
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url() ?>categories">Categories</a>
       </li>
+      </li>
+      <li class="nav-item float-right">
+        <a class="nav-link bg-danger" href="<?= base_url() ?>logout">Logout</a>
+      </li>
     </ul>
 
   </div>
